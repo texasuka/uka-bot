@@ -102,6 +102,7 @@ apiRouter.post("/showWeather", function (req, res) {
         return description, temperature
 
         });
+  .then(res => log(res));
   
     res.status(200).send(responseBody);
   });
