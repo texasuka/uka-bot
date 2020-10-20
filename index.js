@@ -81,33 +81,27 @@ apiRouter.post("/showTreasure", function (req, res) {
 apiRouter.post("/showWeather", function (req, res) {
     console.log(req.body);
 
-    /*const url = "http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=bdf755e9abe7bc4435408e76ce801310"
-    fetch(url)
-    .then(function(resp) { return resp.json() }) 
-    .then(function(data) {
-      d = console.log(data);
-      descript = d.weather[0].description;
-      tem = Math.round(parseFloat(d.main.temp)-273.15)
-    });*/
-    
-    const responseBody = {
-      "version": "2.0",
-      
-      template: {
-        outputs: [
-          {
-            
-            simpleText: {
-              text: "descript",
-              text: "tem"
+    const axios = require("axios");
+    const cheerio = require("cheerio");
+    const log = console.log;
 
-            }
-          }
-        ]
+    const getHtml = async () => {
+      try {
+        return await axios.get("https://www.google.com/search?q=%EC%98%A4%EC%8A%A4%ED%8B%B4+%EB%82%A0%EC%94%A8&rlz=1C1CHBF_enUS847US847&oq=%EC%98%A4%EC%8A%A4%ED%8B%B4+%EB%82%A0%EC%94%A8&aqs=chrome.0.69i59j0i30l2j0i5i30l3j69i60l2.5545j0j4&sourceid=chrome&ie=UTF-8");
+      } catch (error) {
+        console.error(error);
       }
-            
-                
     };
+  
+    getHtml()
+      .then(html => {
+        let ulList = [];
+        const $ = cheerio.load(html.data);
+        const description = $("#wob_dc");
+        const temperature = $("#wob_tm")
+        return description, temperature
+
+        });
   
     res.status(200).send(responseBody);
   });
