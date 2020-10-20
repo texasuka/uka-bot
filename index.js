@@ -94,15 +94,20 @@ apiRouter.post("/showWeather", function (req, res) {
     
     const responseBody = {
       "version": "2.0",
-        data: {
-          description:descript,
-          temp:tem
-  }
-                        
+      template: {
+        outputs: [
+          {
+            simpleText: {
+              text: descript,
+              text: tem
+
+            }
+          }
+        ]
+      }
+            
+                
     };
-  
-    res.status(200).send(responseBody);
-  });
 
 app.listen(8080, function () {
   console.log("listening on port 3000!");
