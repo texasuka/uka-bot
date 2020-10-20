@@ -98,8 +98,7 @@ apiRouter.post("/showWeather", function (req, res) {
         outputs: [
           {
             simpleText: {
-              text: "상세 날씨",
-              text: tem
+              text: "상세 날씨"
 
             }
           }
