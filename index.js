@@ -78,6 +78,32 @@ apiRouter.post("/showTreasure", function (req, res) {
   res.status(200).send(responseBody);
 });
 
+apiRouter.post("/showWeather", function (req, res) {
+    console.log(req.body);
+    
+    var descript=""
+    var tem=0
+    const url = "http://api.openweathermap.org/data/2.5/weather?q=Austin&appid=bdf755e9abe7bc4435408e76ce801310"
+    fetch(url)
+    .then(function(resp) { return resp.json() }) 
+    .then(function(data) {
+      d = console.log(data);
+      descript = d.weather[0].description;
+      tem = Math.round(parseFloat(d.main.temp)-273.15)
+    })
+    
+    const responseBody = {
+      "version": "2.0",
+        data: {
+          description:descript,
+          temp:tem
+  }
+                        
+    };
+  
+    res.status(200).send(responseBody);
+  });
+
 app.listen(8080, function () {
   console.log("listening on port 3000!");
 });
